@@ -4,9 +4,12 @@ if (!isset($_POST['val1'])) {
 } else {
     $val1 = $_POST['val1'];
     $val2 = $_POST['val2'];
-    $val3 = $_POST['val3'];
+    $calc = $_POST['calc'];
 
     if (is_numeric($val1) && is_numeric($val2)) {
+        $val1 = (float)$val1;
+        $val2 = (float)$val2;
+
         switch ($calc) {
             case 'add':
                 $result = $val1 + $val2;
@@ -21,20 +24,18 @@ if (!isset($_POST['val1'])) {
                 if ($val2 != 0) {
                     $result = $val1 / $val2;
                 } else {
-                    $error = "Division by zero is not allowed!";
-                    include 'templates/error.html.php';
-                    exit();
+                    $result = "Cannot divide by zero";
                 }
                 break;
             default:
-                $result = "Unknown operation";
+                $result = "Invalid operation";
         }
 
         $output = "The result of your calculation is: " . $result;
-        include 'templates/result.html.php';
+        include 'template/result.html.php';
     } else {
         $error = "Please enter valid numbers!";
-        include 'templates/error.html.php';
+        include 'template/error.html.php';
     }
 }
 ?>
